@@ -21,7 +21,7 @@ public class BowlingGame {
     }
 
     public boolean isRunning() {
-        return frames.isFinalFrameEnd();
+        return !frames.isFinalFrameEnd();
     }
 
     public void bowl(Pins pins) {

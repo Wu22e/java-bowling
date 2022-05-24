@@ -1,5 +1,7 @@
 package bowling.domain;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Frames {
@@ -13,16 +15,19 @@ public class Frames {
     }
 
     public static Frames initialize() {
-        return new Frames(List.of(NormalFrame.initialize()));
+        List<Frame> frames = new ArrayList<>();
+        frames.add(NormalFrame.initialize());
+        return new Frames(frames);
     }
 
     public boolean isFinalFrameEnd() {
-        return frames.size() == MAX_FRAME_SIZE && currentFrame().isFinal();
+        return frames.size() == MAX_FRAME_SIZE && currentFrame().isFrameEnd();
     }
 
     public void bowl(Pins hitPins) {
+        Frame currentFrame = currentFrame();
         Frame resultFrame = currentFrame().bowl(hitPins);
-        if (resultFrame.isFrameEnd()) {
+        if (currentFrame.isFrameEnd() && !currentFrame.isFinal()) {
             frames.add(resultFrame);
         }
     }

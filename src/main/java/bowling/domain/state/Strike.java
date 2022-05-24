@@ -3,6 +3,8 @@ package bowling.domain.state;
 import bowling.domain.Pins;
 
 public class Strike implements FrameState{
+    private static final String STRIKE_SYMBOL = "X";
+
     @Override
     public FrameState bowl(Pins hitPins) {
         return null;
@@ -15,6 +17,6 @@ public class Strike implements FrameState{
 
     @Override
     public String symbol() {
-        return "X";
+        return STRIKE_SYMBOL;
     }
 }

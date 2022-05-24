@@ -16,6 +16,10 @@ public class Pins {
 //        return new Pins(this.hitPins + pins.hitPins);
 //    }
 
+    public static Pins create(String hitPins) {
+        return new Pins(Integer.parseInt(hitPins));
+    }
+
     public int hitPins() {
         return this.hitPins;
     }

@@ -15,6 +15,10 @@ public class NormalFrame implements Frame {
         this.frameNumber = frameNumber;
     }
 
+    public static Frame create(FrameNumber frameNumber) {
+        return new NormalFrame(new BeforeProgress(), frameNumber);
+    }
+
     public static Frame initialize() {
         return new NormalFrame(new BeforeProgress(), new FrameNumber(START_FRAME_NUMBER));
     }
@@ -32,7 +36,7 @@ public class NormalFrame implements Frame {
         if (frameNumber.next().isLast()) {
             return FinalFrame.initialize();
         }
-        return NormalFrame.initialize();
+        return create(frameNumber.next());
     }
 
     @Override
@@ -43,5 +47,10 @@ public class NormalFrame implements Frame {
     @Override
     public boolean isFinal() {
         return false;
+    }
+
+    @Override
+    public String symbol() {
+        return frameState.symbol();
     }
 }

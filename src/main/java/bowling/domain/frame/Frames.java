@@ -1,7 +1,8 @@
-package bowling.domain;
+package bowling.domain.frame;
+
+import bowling.domain.Pins;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Frames {
@@ -27,7 +28,7 @@ public class Frames {
     public void bowl(Pins hitPins) {
         Frame currentFrame = currentFrame();
         Frame resultFrame = currentFrame().bowl(hitPins);
-        if (currentFrame.isFrameEnd() && !currentFrame.isFinal()) {
+        if (currentFrame.isFrameEnd() && !currentFrame.isFinalFrame()) {
             frames.add(resultFrame);
         }
     }

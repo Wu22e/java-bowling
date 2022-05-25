@@ -7,17 +7,22 @@ public class Pins {
     private final int hitPins;
 
     public Pins(int hitPins) {
-        // todo : 인스턴스 캐싱 하기
+        validatePins(hitPins);
         this.hitPins = hitPins;
     }
 
-//    public Pins bowl(Pins pins) {
-//        validateHitPins(hitPins);
-//        return new Pins(this.hitPins + pins.hitPins);
-//    }
+    private void validatePins(int hitPins) {
+        if (hitPins > MAX_HIT_COUNT || hitPins < MIN_HIT_COUNT) {
+            throw new IllegalArgumentException(String.format("쓰러뜨린 핀이 0 ~ 10개 범위를 벗어날 수 없습니다. 전달 받은 쓰러뜨린 핀 갯수 : %d", hitPins));
+        }
+    }
 
     public static Pins create(String hitPins) {
-        return new Pins(Integer.parseInt(hitPins));
+        return Pins.create(Integer.parseInt(hitPins));
+    }
+
+    public static Pins create(int hitPins) {
+        return new Pins(hitPins);
     }
 
     public int hitPins() {
@@ -29,11 +34,40 @@ public class Pins {
     }
 
     public boolean isSpare(Pins nextHitPins) {
-//        validateNextHitPins(nextHitPins);
         return this.hitPins + nextHitPins.hitPins == MAX_HIT_COUNT;
     }
 
     public boolean isGutter() {
         return this.hitPins == MIN_HIT_COUNT;
+    }
+
+    public boolean isMiss(Pins nextHitPins) {
+        return this.hitPins + nextHitPins.hitPins < MAX_HIT_COUNT;
+    }
+
+    public boolean isOverMaxHitPins(Pins hitPins) {
+        return this.hitPins + hitPins.hitPins > MAX_HIT_COUNT;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Pins pins = (Pins) o;
+
+        return hitPins == pins.hitPins;
+    }
+
+    @Override
+    public int hashCode() {
+        return hitPins;
+    }
+
+    @Override
+    public String toString() {
+        return "Pins{" +
+                "hitPins=" + hitPins +
+                '}';
     }
 }

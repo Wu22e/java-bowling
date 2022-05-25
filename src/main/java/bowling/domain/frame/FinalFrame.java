@@ -1,6 +1,8 @@
-package bowling.domain;
+package bowling.domain.frame;
 
+import bowling.domain.Pins;
 import bowling.domain.state.BeforeProgress;
+import bowling.domain.state.FirstBowl;
 import bowling.domain.state.FrameState;
 import bowling.domain.state.Miss;
 
@@ -21,8 +23,20 @@ public class FinalFrame implements Frame {
         this.bowlCount = 0;
     }
 
-    public static Frame initialize() {
+    public static FinalFrame initialize() {
         return new FinalFrame();
+    }
+
+//    boolean isCurrentFrameBeforeProgressState() {
+//        return frameStates.getLast() instanceof BeforeProgress;
+//    }
+//
+//    boolean isCurrentFrameFirstBowlState() {
+//        return frameStates.getLast() instanceof FirstBowl;
+//    }
+
+    boolean isEqualFrameStates(LinkedList<FrameState> frameStates) {
+        return this.frameStates.equals(frameStates);
     }
 
     @Override
@@ -49,7 +63,7 @@ public class FinalFrame implements Frame {
     }
 
     @Override
-    public boolean isFinal() {
+    public boolean isFinalFrame() {
         return true;
     }
 
@@ -60,5 +74,23 @@ public class FinalFrame implements Frame {
 
     public boolean isMiss(FrameState frameState) {
         return frameState instanceof Miss;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        FinalFrame that = (FinalFrame) o;
+
+        if (bowlCount != that.bowlCount) return false;
+        return frameStates.equals(that.frameStates);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = frameStates.hashCode();
+        result = 31 * result + bowlCount;
+        return result;
     }
 }

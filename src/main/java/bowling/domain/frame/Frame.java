@@ -1,11 +1,13 @@
-package bowling.domain;
+package bowling.domain.frame;
+
+import bowling.domain.Pins;
 
 public interface Frame {
     Frame bowl(Pins hitPins);
 
     boolean isFrameEnd();
 
-    boolean isFinal();
+    boolean isFinalFrame();
 
     String symbol();
 }

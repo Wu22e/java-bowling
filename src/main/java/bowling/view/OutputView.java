@@ -1,9 +1,7 @@
 package bowling.view;
 
 import bowling.domain.BowlingGame;
-import bowling.domain.Frame;
-import bowling.domain.Frames;
-import bowling.domain.Player;
+import bowling.domain.frame.Frame;
 
 import java.util.List;
 import java.util.stream.IntStream;

@@ -23,6 +23,13 @@ public class FinalFrame implements Frame {
         this.bowlCount = 0;
     }
 
+    public FinalFrame(LinkedList<FrameState> frameStates, int bowlCount) {
+        // todo 검증!!
+        // validateFrameStatesAndBowlCount(frameStates, bowlCount);
+        this.frameStates = new LinkedList<>(List.of(new BeforeProgress()));
+        this.bowlCount = bowlCount;
+    }
+
     public static FinalFrame initialize() {
         return new FinalFrame();
     }
@@ -37,6 +44,10 @@ public class FinalFrame implements Frame {
 
     boolean isEqualFrameStates(LinkedList<FrameState> frameStates) {
         return this.frameStates.equals(frameStates);
+    }
+
+    boolean isMatchBowlCount(int bowlCount) {
+        return this.bowlCount == bowlCount;
     }
 
     @Override
@@ -72,7 +83,7 @@ public class FinalFrame implements Frame {
         return frameStates.stream().map(FrameState::symbol).collect(Collectors.joining(DELIMITER));
     }
 
-    public boolean isMiss(FrameState frameState) {
+    private boolean isMiss(FrameState frameState) {
         return frameState instanceof Miss;
     }
 

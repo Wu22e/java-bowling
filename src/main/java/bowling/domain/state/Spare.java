@@ -16,7 +16,7 @@ public class Spare implements FrameState {
 
     private void validatePins(Pins firstPins) {
         if (firstPins.isStrike()) {
-            new IllegalArgumentException(String.format("Spare 상태는 첫번쨰 투구로 쓰러트린 핀이 10개 일 수 없습니다. 전달 받은 쓰러뜨린 Pins 갯수 %s", firstPins));
+            throw new IllegalArgumentException(String.format("Spare 상태는 첫번쨰 투구로 쓰러트린 핀이 10개 일 수 없습니다. 전달 받은 쓰러뜨린 Pins 갯수 %s", firstPins));
         }
     }
 

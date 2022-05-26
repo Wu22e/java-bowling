@@ -11,8 +11,14 @@ public class Frames {
     private final List<Frame> frames;
 
     public Frames(List<Frame> frames) {
-//        validateFrames(frames);
+        validateFrames(frames);
         this.frames = frames;
+    }
+
+    private void validateFrames(List<Frame> frames) {
+        if (frames == null) {
+            throw new IllegalArgumentException("프레임 리스트는 null 일 수 없습니다.");
+        }
     }
 
     public static Frames initialize() {
@@ -37,11 +43,26 @@ public class Frames {
         return frames.size();
     }
 
-    public Frame currentFrame() {
+    private Frame currentFrame() {
         return frames.get(frames.size() - 1);
     }
 
     public List<Frame> frames() {
         return frames;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Frames frames1 = (Frames) o;
+
+        return frames.equals(frames1.frames);
+    }
+
+    @Override
+    public int hashCode() {
+        return frames.hashCode();
     }
 }

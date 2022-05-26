@@ -10,9 +10,18 @@ public class BowlingGame {
     private final Frames frames;
 
     public BowlingGame(Player player, Frames frames) {
-//        validate(player, frames);
+        validatePlayerAndFrames(player, frames);
         this.player = player;
         this.frames = frames;
+    }
+
+    private void validatePlayerAndFrames(Player player, Frames frames) {
+        if (player == null) {
+            throw new IllegalArgumentException("플레이어는 null 일 수 없습니다.");
+        }
+        if (frames == null) {
+            throw new IllegalArgumentException("frames 는 null 일 수 없습니다.");
+        }
     }
 
     public static BowlingGame create(Player player) {

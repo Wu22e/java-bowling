@@ -17,7 +17,7 @@ public class Miss implements FrameState {
 
     private void validateFirstPinsAndSecondPins(Pins firstPins, Pins secondPins) {
         if (!firstPins.isMiss(secondPins)) {
-            new IllegalArgumentException(String.format("Miss 상태는 첫번쨰 투구와 두번쨰 투구로 쓰러트린 핀 합이 10개 미만 이어야 합니다. 전달 받은 쓰러뜨린 firstPins 갯수 : %s, secondPins 갯수 : %s", firstPins, secondPins));
+            throw new IllegalArgumentException(String.format("Miss 상태는 첫번쨰 투구와 두번쨰 투구로 쓰러트린 핀 합이 10개 미만 이어야 합니다. 전달 받은 쓰러뜨린 firstPins 갯수 : %s, secondPins 갯수 : %s", firstPins, secondPins));
         }
     }
 

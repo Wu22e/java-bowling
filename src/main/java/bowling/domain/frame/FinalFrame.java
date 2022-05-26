@@ -2,7 +2,6 @@ package bowling.domain.frame;
 
 import bowling.domain.Pins;
 import bowling.domain.state.BeforeProgress;
-import bowling.domain.state.FirstBowl;
 import bowling.domain.state.FrameState;
 import bowling.domain.state.Miss;
 
@@ -14,6 +13,7 @@ public class FinalFrame implements Frame {
     private static final String DELIMITER = "|";
     private static final int MAX_BOWL = 3;
     private static final int MIN_BOWL = 2;
+    private static final int ZERO = 0;
 
     private final LinkedList<FrameState> frameStates;
     private int bowlCount;
@@ -23,20 +23,31 @@ public class FinalFrame implements Frame {
         this.bowlCount = 0;
     }
 
+    FinalFrame(LinkedList<FrameState> frameStates, int bowlCount) {
+         validateFrameStatesAndBowlCount(frameStates, bowlCount);
+        this.frameStates = frameStates;
+        this.bowlCount = bowlCount;
+    }
+
+    private void validateFrameStatesAndBowlCount(LinkedList<FrameState> frameStates, int bowlCount) {
+        if (frameStates == null) {
+            throw new IllegalArgumentException("프레임 상태 리스트는 null 일 수 없습니다.");
+        }
+        if (bowlCount < ZERO || bowlCount > MAX_BOWL) {
+            throw new IllegalArgumentException(String.format("마지막 프레임의 투구 횟수는 0 ~ 3을 벗어날 수 없습니다. 전달받은 투구 횟수 : %d", bowlCount));
+        }
+    }
+
     public static FinalFrame initialize() {
         return new FinalFrame();
     }
 
-//    boolean isCurrentFrameBeforeProgressState() {
-//        return frameStates.getLast() instanceof BeforeProgress;
-//    }
-//
-//    boolean isCurrentFrameFirstBowlState() {
-//        return frameStates.getLast() instanceof FirstBowl;
-//    }
-
     boolean isEqualFrameStates(LinkedList<FrameState> frameStates) {
         return this.frameStates.equals(frameStates);
+    }
+
+    boolean isMatchBowlCount(int bowlCount) {
+        return this.bowlCount == bowlCount;
     }
 
     @Override
@@ -72,7 +83,7 @@ public class FinalFrame implements Frame {
         return frameStates.stream().map(FrameState::symbol).collect(Collectors.joining(DELIMITER));
     }
 
-    public boolean isMiss(FrameState frameState) {
+    private boolean isMiss(FrameState frameState) {
         return frameState instanceof Miss;
     }
 

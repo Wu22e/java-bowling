@@ -1,7 +1,9 @@
 package bowling.domain;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.collectingAndThen;
+import static java.util.stream.Collectors.toList;
 
 public class BowlingGames {
     private static final int UNIT_INDEX = 1;
@@ -23,12 +25,13 @@ public class BowlingGames {
     }
 
     public static BowlingGames initialize(List<Player> players) {
-        List<BowlingGame> bowlingGames = players.stream().map(BowlingGame::create).collect(Collectors.toList());
-        return new BowlingGames(bowlingGames);
+        return players.stream()
+                .map(BowlingGame::create)
+                .collect(collectingAndThen(toList(), BowlingGames::new));
     }
 
     public void playBowlingGame(Pins hitPins) {
-        BowlingGame bowlingGame = bowlingGames.get(playerIndex);
+        BowlingGame bowlingGame = getBowlingGame();
         bowlingGame.bowl(hitPins);
         if (bowlingGame.isCurrentFrameEnd()) {
             bowlingGame.updateToNextFrameNumber();
@@ -56,10 +59,14 @@ public class BowlingGames {
     }
 
     public String currentPlayerName() {
-        return bowlingGames.get(playerIndex).playerName();
+        return getBowlingGame().playerName();
     }
 
     public List<BowlingGame> bowlingGames() {
         return bowlingGames;
+    }
+
+    private BowlingGame getBowlingGame() {
+        return bowlingGames.get(playerIndex);
     }
 }

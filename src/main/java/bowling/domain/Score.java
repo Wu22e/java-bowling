@@ -61,11 +61,11 @@ public class Score {
     }
 
     public Score addScore(int hitPins) {
-        validateBeforeAddScore();
+        validateBonusChanceCount();
         return new Score(score + hitPins, bonusChanceCount - ONE_BOWL_CHANCE);
     }
 
-    private void validateBeforeAddScore() {
+    private void validateBonusChanceCount() {
         if (this.bonusChanceCount == 0) {
             throw new IllegalArgumentException("보너스 기회가 0 일 경우, 점수를 더할 수 없습니다.");
         }

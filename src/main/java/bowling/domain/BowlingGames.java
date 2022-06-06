@@ -48,7 +48,7 @@ public class BowlingGames {
     }
 
     public boolean isCurrentPlayerName(String playerName) {
-        return bowlingGames.get(playerIndex).playerName().equals(playerName);
+        return currentPlayerName().equals(playerName);
     }
 
     public boolean isRunning() {
